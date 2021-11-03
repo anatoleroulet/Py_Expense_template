@@ -9,6 +9,7 @@ user_questions = [
     }
 ]
 
+#add a user to the CSV users.csv with his label
 def add_user(*args):
     infos = prompt(user_questions)
     with open('users.csv', 'a', newline='') as csvfile:

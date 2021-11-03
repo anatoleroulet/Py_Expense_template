@@ -1,6 +1,7 @@
 from PyInquirer import prompt, Separator
 import csv
 
+#Return the user list for a list
 def get_users(answers):
     user_list = []
     with open('users.csv') as csv_file:
@@ -9,6 +10,7 @@ def get_users(answers):
             user_list.append(row[0])
     return user_list
 
+#returne the user list for a choice
 def get_involved(answers):
     user_list = []
     with open('users.csv') as csv_file:
@@ -45,7 +47,7 @@ expense_questions = [
 ]
 
 
-
+#Fill the CSV expense_report (in the order) : amount label spender involved_people(as numerous as neccesary)
 def new_expense(*args):
     infos = prompt(expense_questions)
 
