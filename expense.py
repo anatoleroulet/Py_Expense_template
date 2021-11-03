@@ -9,6 +9,13 @@ def get_users(answers):
             user_list.append(row[0])
     return user_list
 
+def get_involved(answers):
+    user_list = []
+    with open('users.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            user_list.append({'name' : row[0]})
+    return user_list
 
 expense_questions = [
     {
@@ -28,6 +35,12 @@ expense_questions = [
         'choices': get_users,
     },
 
+    {
+        'type': 'checkbox',
+        "name":"people_involved",
+        "message":"New Expense - People involved in the expense: ",
+        'choices': get_involved
+    },
 
 ]
 
@@ -42,6 +55,8 @@ def new_expense(*args):
          row.append(infos["amount"])
          row.append(infos["label"])
          row.append(infos["spender"])
+         for users in infos["people_involved"]:
+            row.append(users)
          expensewriter.writerow(row)
 
     # Writing the informations on external file might be a good idea ¯\_(ツ)_/¯
