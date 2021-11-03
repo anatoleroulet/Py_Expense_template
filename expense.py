@@ -1,5 +1,14 @@
-from PyInquirer import prompt
+from PyInquirer import prompt, Separator
 import csv
+
+def get_users(answers):
+    user_list = []
+    with open('users.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            user_list.append(row[0])
+    return user_list
+
 
 expense_questions = [
     {
@@ -13,10 +22,12 @@ expense_questions = [
         "message":"New Expense - Label: ",
     },
     {
-        "type":"input",
+        'type': 'list',
         "name":"spender",
         "message":"New Expense - Spender: ",
+        'choices': get_users,
     },
+
 
 ]
 
@@ -24,7 +35,6 @@ expense_questions = [
 
 def new_expense(*args):
     infos = prompt(expense_questions)
-    print(infos["label"])
 
     with open('expense_report.csv', 'a', newline='') as csvfile:
          expensewriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
